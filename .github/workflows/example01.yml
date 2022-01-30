@@ -33,3 +33,4 @@ jobs:
             environmentName=dev
             locationCode=ae
             location="Australia East"
+          deploymentName: Deploy_dev

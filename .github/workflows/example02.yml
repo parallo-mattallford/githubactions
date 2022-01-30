@@ -40,6 +40,7 @@ jobs:
             environmentName=${{ env.environmentName }}
             locationCode=${{ env.locationCode }}
             location="${{ env.location }}"
+          deploymentName: Deploy_${{ env.environmentName }}
 
   DeployTest:
     name: Deploy to Azure
@@ -68,3 +69,4 @@ jobs:
             environmentName=${{ env.environmentName }}
             locationCode=${{ env.locationCode }}
             location="${{ env.location }}"
+          deploymentName: Deploy_${{ env.environmentName }}
