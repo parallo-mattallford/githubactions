@@ -11,7 +11,7 @@ jobs:
   Deploy_Dev:
     uses: parallo-mattallford/githubactions/.github/workflows/deploy-environment-template.yml@main
     with:
-      subscriptionId: b28d4b28-f79f-4684-b050-002518640805
+      subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       environmentName: dev
       locationCode: ae
       location: Australia East
@@ -23,7 +23,7 @@ jobs:
   Deploy_Test:
     uses: parallo-mattallford/githubactions/.github/workflows/deploy-environment-template.yml@main
     with:
-      subscriptionId: b28d4b28-f79f-4684-b050-002518640805
+      subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       environmentName: test
       locationCode: ae
       location: Australia East
