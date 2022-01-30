@@ -3,10 +3,6 @@ name: "Workflow Template - Deploy Azure Infrastructure"
 on:
   workflow_call:
     inputs:
-      subscriptionId:
-        description: "Enter the Azure Subscription ID"
-        required: true
-        type: string
       environmentName:
         description: "Enter the name of the environment to deploy"
         required: true
