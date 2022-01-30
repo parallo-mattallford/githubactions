@@ -49,7 +49,7 @@ jobs:
       with:
         scope: subscription
         subscriptionId: ${{ inputs.subscriptionId }}
-        region: "${{ env.location }}"
+        region: "${{ inputs.location }}"
         template: ./templates/main.bicep
         parameters:
           environmentName=${{ inputs.environmentName }}
