@@ -14,7 +14,7 @@ env:
 
 jobs:
   DeployDev:
-    name: Deploy to Azure
+    name: Deploy to Dev
     runs-on: ubuntu-latest
     env:
       environmentName: dev
@@ -43,10 +43,12 @@ jobs:
           deploymentName: Deploy_${{ env.environmentName }}
 
   DeployTest:
-    name: Deploy to Azure
+    name: Deploy to Test
     runs-on: ubuntu-latest
     env:
       environmentName: test
+    environment:
+      name: test
 
     steps:
       - uses: actions/checkout@v2
