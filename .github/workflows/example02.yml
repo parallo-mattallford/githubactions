@@ -1,4 +1,4 @@
-name: Example01
+name: Example02
 
 on:
   workflow_dispatch:
