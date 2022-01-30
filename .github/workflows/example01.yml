@@ -1,0 +1,29 @@
+name: Example01
+
+on:
+  workflow_dispatch:
+
+jobs:
+  BicepDeployment:
+    name: Deploy to Azure
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Dev Environment
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: subscription
+          subscriptionId: b0d113f3-7b5f-43f6-b841-db43c97aeabc
+          region: "Australia East"
+          template: ./templates/main.bicep
+          parameters:
+            environmentName=dev
+            locationCode=ae
+            location='Australia East'

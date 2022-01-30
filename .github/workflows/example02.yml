@@ -1,0 +1,62 @@
+name: Example01
+
+on:
+  workflow_dispatch:
+
+env:
+  subscriptionId: b0d113f3-7b5f-43f6-b841-db43c97aeabc
+  location: Australia East
+  locationCode: ae
+
+jobs:
+  DeployDev:
+    name: Deploy to Azure
+    runs-on: ubuntu-latest
+    env:
+      environmentName: dev
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy ${{ env.environmentName }}
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: subscription
+          subscriptionId: ${{ env.subscriptionId }}
+          region: "${{ env.location }}"
+          template: ./templates/main.bicep
+          parameters:
+            environmentName=${{ env.environmentName }}
+            locationCode=${{ env.locationCode }}
+            location="${{ env.location }}"
+
+  DeployTest:
+    name: Deploy to Azure
+    runs-on: ubuntu-latest
+    env:
+      environmentName: test
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy ${{ env.environmentName }}
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: subscription
+          subscriptionId: ${{ env.subscriptionId }}
+          region: "${{ env.location }}"
+          template: ./templates/main.bicep
+          parameters:
+            environmentName=${{ env.environmentName }}
+            locationCode=${{ env.locationCode }}
+            location="${{ env.location }}"
