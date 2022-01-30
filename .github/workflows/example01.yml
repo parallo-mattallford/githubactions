@@ -32,4 +32,4 @@ jobs:
           parameters:
             environmentName=dev
             locationCode=ae
-            location='Australia East'
+            location="Australia East"
