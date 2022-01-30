@@ -1,0 +1,58 @@
+name: "Workflow Template - Deploy Azure Infrastructure"
+
+on:
+  workflow_call:
+    inputs:
+      subscriptionId:
+        description: "Enter the Azure Subscription ID"
+        required: true
+        type: string
+      environmentName:
+        description: "Enter the name of the environment to deploy"
+        required: true
+        type: string
+      locationCode:
+        description: "Enter the Azure location code, this will get used in the names of resources"
+        required: true
+        type: string
+      location:
+        description: "Enter the Azure location to deploy to"
+        required: true
+        type: string
+    secrets:
+      AZURE_CLIENT_ID:
+        description: "Enter the client ID for the app registration to use with OIDC"
+        required: true
+      AZURE_TENANT_ID:
+        description: "Enter the tenant ID"
+        required: true
+      AZURE_SUBSCRIPTION_ID:
+        description: "enter the subscription ID"
+        required: true
+
+jobs:
+  deployInfrastructure:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Azure Login
+      uses: Azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Deploy ${{ inputs.environmentName }}
+      uses: Azure/arm-deploy@v1
+      with:
+        scope: subscription
+        subscriptionId: ${{ inputs.subscriptionId }}
+        region: "${{ env.location }}"
+        template: ./templates/main.bicep
+        parameters:
+          environmentName=${{ inputs.environmentName }}
+          locationCode=${{ inputs.locationCode }}
+          location="${{ inputs.location }}"
+        deploymentName: Deploy_${{ inputs.environmentName }}

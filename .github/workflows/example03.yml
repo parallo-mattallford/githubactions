@@ -1,0 +1,33 @@
+name: Deploy Dev Azure Infrastructure
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+    
+jobs:
+  Deploy_Dev:
+    uses: parallo-mattallford/githubactions/.github/workflows/deploy-environment-template.yml@main
+    with:
+      subscriptionId: b28d4b28-f79f-4684-b050-002518640805
+      environmentName: dev
+      locationCode: ae
+      location: Australia East
+    secrets:
+      client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+  Deploy_Test:
+    uses: parallo-mattallford/githubactions/.github/workflows/deploy-environment-template.yml@main
+    with:
+      subscriptionId: b28d4b28-f79f-4684-b050-002518640805
+      environmentName: test
+      locationCode: ae
+      location: Australia East
+    secrets:
+      client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
