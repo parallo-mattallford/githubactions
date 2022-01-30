@@ -3,6 +3,10 @@ name: Example02
 on:
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   subscriptionId: b0d113f3-7b5f-43f6-b841-db43c97aeabc
   location: Australia East
