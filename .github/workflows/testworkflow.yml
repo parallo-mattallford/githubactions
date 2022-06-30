@@ -9,11 +9,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: checkout local repo
+      uses: actions/checkout@v2
 
-    - name: Checkout private tools
+    - name: Checkout private repo
       uses: actions/checkout@v3
       with:
         repository: mattallford/testprivaterepo
         token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
         path: mattallfordrepo
+    
+    - name: check directory structure
+      run: |
+        ls -R
