@@ -33,6 +33,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - run: printenv
     - name: Azure Login
       uses: Azure/login@v1
       with:
