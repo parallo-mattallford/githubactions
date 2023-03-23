@@ -14,12 +14,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: az version
-        uses: azure/cli@1.0.4
-        with:
-          azcliversion: latest
-          inlineScript: |
-            echo $(az --version)
       #stuck here - not able to log in to Azure have tried a number of different value combinations and have confirmed az login via cloud shell with creadentials
       - uses: azure/login@v1
         with:
