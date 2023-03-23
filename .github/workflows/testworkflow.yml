@@ -1,24 +1,26 @@
 name: testworkflow
 
-on:
-  workflow_dispatch:
+on: [push]
 
+permissions:
+    id-token: write
+    contents: read
 
 jobs:
-  deployInfrastructure:
+  build:
+    name: build the secure properties file generator
     runs-on: ubuntu-latest
-
     steps:
-    - name: checkout local repo
-      uses: actions/checkout@v2
+      - name: Check out repository code
+        uses: actions/checkout@v3
 
-    - name: Checkout private repo
-      uses: actions/checkout@v3
-      with:
-        repository: mattallford/testprivaterepo
-        token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
-        path: mattallfordrepo
-    
-    - name: check directory structure
-      run: |
-        ls -R
+      - name: az version
+        uses: azure/cli@1.0.4
+        with:
+          azcliversion: latest
+          inlineScript: |
+            echo $(az --version)
+      #stuck here - not able to log in to Azure have tried a number of different value combinations and have confirmed az login via cloud shell with creadentials
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDS_MALLFORD }}
